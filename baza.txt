@@ -1,0 +1,15 @@
+Serwer baz danych dostępny pod adresem ip 10.254.94.2 oraz nazwą sbazy.uek.krakow.pl lub sbazy i portach Mysql - 3306, Postgres - 5432. 
+Przykładowe połączenie do serwera Mysql:
+
+mysql -u s179861 -h 10.254.94.2 -D s179861 -p
+mysql -u s179861 -h sbazy.uek.krakow.pl -p
+
+Twoje hasło do bazy Mysql to : G8sk5BwN
+
+Przykładowe połączenie do serwera Postgres:
+
+psql -U s179861 -h 10.254.94.2
+psql -U s179861 -h sbazy -p 5432 
+
+Twoje hasło do bazy Postgres to : QHLdR5dy
+

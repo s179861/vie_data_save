@@ -1,0 +1,8 @@
+insert into studenci (nazwisko,imie,data_urodzenia,nr_grupy) values
+	('Iwanicki','Maciej','1980-10-27','DMZm1003'),
+	('Nowakowski','Kamil','1978-02-20','DMZm1003'),
+	('Janowska','Aneta','1978-10-18','DMIe1001'),
+	('Kosmońska','Lucyna','1979-02-02','DMIe1001'),
+	('Michalska','Agnieszka','1979-03-11','ZMIe2001'),
+	('Jasiński','Wojciech','1982-06-21','DMIe1001'),
+	('Nowak','Ireneusz','1986-11-23','DMZm1003');

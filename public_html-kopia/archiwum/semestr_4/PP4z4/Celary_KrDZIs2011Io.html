@@ -1,0 +1,102 @@
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="author" content="179861" />
+	<script type="text/javascript">
+		var prkod = false;
+		var prmail = false;
+		var prlicz = false;
+		var prdzi = false;
+		
+		function fkod(x) {
+			var wyr = /^\d{2}-\d{3}$/;
+			if (!x.value.match(wyr)) {
+				alert('Kod pocztowy jest nie poprawny');
+				prkod = false;
+			} else {
+				prkod = true;
+			}
+			return;
+		}
+		
+		function fmail(x) {
+			var wyr = /^\w+@{1}\w+\.{1}\w+$/;
+			if (!x.value.match(wyr)) {
+				alert('Adres email jest nie poprawny');
+				prmail = false;
+			} else {
+				prmail = true;
+			}
+			return;
+		}
+		
+		function flicz(x) {
+			var wyr = /^\d{2}(\.\d{1,2})?$/;
+			if (!x.value.match(wyr) || x.value > 30 || x.value < 10) {
+				alert('Podana liczba jest nie zgodna ze wzorem');
+				prlicz = false;
+			} else {
+				prlicz = true;
+			}
+			return;
+		}
+		
+		function fdzi(x) {
+			var day = new Date();
+			if (!(day.getDay() == x.value)) {
+				if (confirm('Wybrano inny niż dzisiejszy dzień tygodnia. Czy chcesz potwierdzić?')) {
+					prdzi = true;
+				} else {
+					prdzi = false;
+				}
+			} else {
+				prdzi = true;
+			}
+			return;
+		}
+		
+		function fsub(event) {
+			var tresc = '';
+			if (!prkod) { tresc = 'Niepoprawny kod pocztowy'; }
+			if (!prmail) { tresc = tresc + '\nNiepoprawny adres e-mail'; }
+			if (!prlicz) { tresc = tresc + '\nNiepoprawna liczba'; }
+			if (!prdzi) { tresc = tresc + '\nWybrano nie dzisiejszy dzien tygodnia i nie zatwierdzono go'; }
+			if (!document.formularz.zgoda.checked) { tresc = tresc + '\nNie zaznaczono zgody na przetwarzanie danych osobowych'; }
+			if (!prkod || !prmail || !prlicz || !prdzi || !document.formularz.zgoda.checked) {
+				 alert(tresc);
+				 document.formularz.zgoda.focus();
+				 event.preventDefault();
+			}
+		}
+		
+	</script>
+</head>
+<body>
+	<form name="formularz" action="xyz.html" method="get">
+		Wpisz kod pocztowy w formacie cc-ccc:
+		<input type="text" name="kod" maxlength="6" onBlur="fkod(this)" />
+		<br/>
+		Wpisz adres e-mail:
+		<input type="text" name="mail" onBlur="fmail(this)" />
+		<br/>
+		Wpisz liczbę rzeczywistą z przedziału &lt;10-30&gt; z maksymalnie dwiema cyframi po KROPCE:
+		<input type="text" name="liczba" onBlur="flicz(this)" />
+		<br/>
+		Wybierz dzień tygodnia:<br/>
+		<select name="dzien" size="4" onChange="fdzi(this)" />
+			<option value="1"/>poniedziałek
+			<option value="2"/>wtorek
+			<option value="3"/>środa
+			<option value="4"/>czwartek
+			<option value="5"/>piątek
+			<option value="6"/>sobota
+			<option value="0"/>niedziela
+		</select>
+		<br/>
+		<input type="checkbox" name="zgoda" />
+		Zgadzam się na przetwarzanie moich danych osobowych
+		<br/>
+		<input type="submit" value="Prześlij dane" onClick="fsub(event)" />
+	</form>
+	</body>
+</html>

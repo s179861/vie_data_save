@@ -1,0 +1,6 @@
+insert into stopnie_tytuly (stopien_tytul,stawka) values
+	('magister',40),
+	('doktor',45),
+	('doktor habilitowany',55),
+	('profesor nadzwyczajny',60),
+	('profesor zwyczajny',65);

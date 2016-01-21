@@ -1,0 +1,6 @@
+insert into pracownicy (nazwisko,imie) values
+	('Halemba','Iwona'),
+	('Kulczyk','Jacek'),
+	('Jaskowski','Ireneusz'),
+	('Kowalczyk','Monika'),
+	('Malinowski','Jacek');

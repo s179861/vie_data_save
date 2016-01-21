@@ -1,0 +1,9 @@
+{
+	"name": "rcelary/demo-projekt",
+	"autoload": {
+		"psr-0": { "": "src/" }
+	},
+	"require": {
+		"php": ">=5.3.3"
+	}
+}

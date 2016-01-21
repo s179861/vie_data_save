@@ -1,0 +1,7 @@
+insert into studenci_wyklady (id_studenta,id_wykladu) values
+	(2,1),
+	(3,2),
+	(1,2),
+	(2,3),
+	(6,4),
+	(2,4);

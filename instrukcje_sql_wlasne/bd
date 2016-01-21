@@ -1,0 +1,69 @@
+create table grupy (
+nr_grupy varchar(20) primary key);
+
+create table studenci (
+id_studenta serial primary key,
+nazwisko varchar(30) not null,
+imie varchar(30),
+data_urodzenia date,
+nr_grupy varchar(20),
+foreign key (nr_grupy) references grupy (nr_grupy)
+on delete restrict on update cascade);
+
+create table oceny (
+ocena float4 primary key
+);
+
+create table stopnie_tytuly (
+stopien_tytul varchar(30) primary key,
+stawka money
+);
+
+create table pracownicy (
+id_pracownika serial primary key,
+nazwisko varchar(30),
+imie varchar(30),
+NIP char(11),
+PESEL char(11)
+);
+
+create table wykladowcy (
+id_wykladowcy int4 primary key,
+stopien_tytul varchar(30),
+katedra varchar(30),
+constraint lpw foreign key (id_wykladowcy) references pracownicy (id_pracownika)
+on delete cascade on update restrict,
+constraint lsw foreign key (stopien_tytul) references stopnie_tytuly (stopien_tytul)
+on delete restrict on update cascade
+);
+
+create table wyklady (
+id_wykladu serial primary key,
+nazwa_wykladu varchar(30),
+liczba_godzin int2,
+id_wykladowcy int4,
+foreign key (id_wykladowcy) references wykladowcy (id_wykladowcy)
+on delete restrict on update restrict
+);
+
+create table studenci_wyklady (
+id_studenta int4,
+id_wykladu int4,
+primary key (id_studenta,id_wykladu),
+foreign key (id_studenta) references studenci (id_studenta)
+on delete cascade on update restrict,
+foreign key (id_wykladu) references wyklady (id_wykladu)
+on delete restrict on update restrict
+);
+
+create table oceny_studentow (
+id_studenta int4,
+id_wykladu int4,
+data_egzaminu date,
+ocena float4,
+primary key (id_studenta,id_wykladu,data_egzaminu),
+foreign key (id_studenta,id_wykladu) references studenci_wyklady (id_studenta,id_wykladu)
+on delete restrict on update restrict,
+foreign key (ocena) references oceny (ocena)
+on delete restrict on update cascade
+);

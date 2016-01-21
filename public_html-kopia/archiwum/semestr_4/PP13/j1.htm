@@ -1,0 +1,32 @@
+<html>
+<head>
+	<meta charset="UTF-8"/>
+	<script type="text/javascript">
+		var wartosc = '';
+		var zmienna = 'Wybrano wartość ';
+
+		function f_wybierz(x) {
+			wartosc = x.value;
+		}
+		
+		function f_wyslij() {
+			if (wartosc == '') {
+				alert("Nie wybrano wartości");
+			} else {
+				zmienna = zmienna + wartosc;
+				alert(zmienna);
+			}
+		}
+	</script>
+</head>
+<body>
+	<form name="formularz">
+		<select name="lista" onChange="f_wybierz(this)">
+			<option value="A"/>A<br/>
+			<option value="B"/>B<br/>
+			<option value="C"/>C<br/>
+		</select>
+		<input type="submit" value="Wyślij" onClick="f_wyslij()"/>
+	</form>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<html>
+<head>
+	<meta charset="UTF-8"/>
+	<script type="text/javascript">
+		var wyrazenie = "[^5]*[5]{1}[^5]*";
+		function f_sprawdz(x) {
+			wynik = x.value.match(wyrazenie);
+			if (wynik == null) {
+				alert("Wpisany tekst nie zawiera dokładnie jednej cyfry 5");	
+			} else {
+				alert("Wpisany tekst zawiera dokładnie jedną cyfrę 5");
+			}
+		}
+	</script>
+</head>
+<body>
+	<form name="formularz">
+		<input type="text" size="10" maxLength="10" onBlur="f_sprawdz(this)"/>
+	</form>
+</body>
+</html>

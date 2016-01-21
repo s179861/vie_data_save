@@ -1,0 +1,6 @@
+insert into grupy (nr_grupy) values ('DMIe1001');
+
+insert into grupy (nr_grupy) values
+	('DMZm1003'),
+	('ZMZm2001'),
+	('ZMIe2001');

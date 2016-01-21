@@ -1,0 +1,193 @@
+/*
+Baza danych wyzszaUczelnia - patrz BazyDanych w internecie, zajecia 3
+*/
+
+create table oceny (
+ocena float4 primary key);
+
+insert into oceny values (2);
+insert into oceny values (3);
+insert into oceny values (3.5);
+insert into oceny values (4);
+insert into oceny values (4.5);
+insert into oceny values (5);
+
+
+create table grupy (
+nr_grupy varchar(10) primary key);
+
+
+insert into grupy values ('DMIe1001');
+
+insert into grupy values ('DMZm1003');
+
+insert into grupy values ('ZMZm2001');
+
+insert into grupy values ('ZMIe2001');
+
+
+create table stopnie_tytuly (
+stopien_tytul varchar(25) primary key,
+stawka float4 not null);
+
+
+insert into stopnie_tytuly values ('magister',40);
+
+insert into stopnie_tytuly values ('doktor',45);
+
+insert into stopnie_tytuly values ('doktor habilitowany',55);
+
+insert into stopnie_tytuly values ('profesor nadzwyczajny',60);
+
+insert into stopnie_tytuly values ('profesor zwyczajny',65);
+
+
+create table pracownicy (
+id_pracownika serial primary key,
+nazwisko varchar(30) not null,
+imie varchar(25),
+NIP varchar(13),
+PESEL varchar(11));
+
+
+insert into pracownicy (nazwisko, imie, NIP, PESEL) 
+values ('Halemba','Iwona','231-190-76-21','69101223456');
+
+insert into pracownicy (nazwisko, imie, NIP) 
+values ('Kulczyk','Jacek','190-120-67-12');
+
+insert into pracownicy (nazwisko, imie, PESEL) 
+values ('Jaskowski','Ireneusz','71110212345');
+
+insert into pracownicy (nazwisko, imie, NIP, PESEL) 
+values ('Kowalczyk','Monika','111-234-23-23','76032390876');
+
+insert into pracownicy (nazwisko, imie, NIP) 
+values ('Malinowski','Jacek','123-123-12-12');
+
+
+create table wykladowcy (
+id_wykladowcy int8 primary key,
+stopien_tytul varchar(25) not null,
+katedra varchar(100),
+foreign key (stopien_tytul) references stopnie_tytuly 
+on delete restrict on update cascade,
+foreign key (id_wykladowcy) references pracownicy (id_pracownika) on delete cascade
+);
+
+
+insert into wykladowcy values (1, 'doktor', 'Katedra Matematyki');
+
+insert into wykladowcy values (2, 'profesor nadzwyczajny', 'Katedra Informatyki');
+
+insert into wykladowcy values (3, 'doktor', 'Katedra Historii');
+
+insert into wykladowcy values (4, 'magister', 'Katedra Ekonomii');
+
+
+create table studenci (
+id_studenta serial primary key,
+nazwisko varchar(30) not null,
+imie varchar(25),
+data_urodzenia date,
+nr_grupy varchar(10),
+foreign key (nr_grupy) references grupy
+on delete restrict on update cascade
+);
+
+
+insert into studenci (nazwisko, imie, data_urodzenia, nr_grupy)
+values ('Iwanicki', 'Maciej', '1980-10-27', 'DMIe1001');
+
+insert into studenci (nazwisko, imie, data_urodzenia, nr_grupy)
+values ('Nowakowski', 'Kamil', '1978-02-20', 'DMZm1003');
+
+insert into studenci (nazwisko, imie, data_urodzenia, nr_grupy)
+values ('Janowska', 'Aneta', '1978-10-18', 'DMIe1001');
+
+insert into studenci (nazwisko, imie, data_urodzenia, nr_grupy)
+values ('Kosmonska', 'Lucyna', '1979-2-2', 'DMIe1001');
+
+insert into studenci (nazwisko, imie, data_urodzenia, nr_grupy)
+values ('Michalska', 'Agnieszka', '1979-03-11', 'ZMIe2001');
+
+insert into studenci (nazwisko, imie, data_urodzenia, nr_grupy)
+values ('Jasinski', 'Wojciech', '1982-06-21', 'DMIe1001');
+
+insert into studenci (nazwisko, imie, data_urodzenia, nr_grupy)
+values ('Nowak', 'Ireneusz', '1986-11-23', 'DMZm1003');
+
+
+
+create table wyklady (
+id_wykladu serial primary key,
+nazwa_wykladu varchar(50) not null,
+liczba_godzin int2,
+id_wykladowcy int8,
+foreign key (id_wykladowcy) references wykladowcy 
+on delete restrict on update cascade, 
+check (liczba_godzin < 60)
+);
+
+
+insert into wyklady (nazwa_wykladu, liczba_godzin, id_wykladowcy)
+values ('Informatyka', 30, 2);
+
+insert into wyklady (nazwa_wykladu, liczba_godzin, id_wykladowcy)
+values ('Statystyka', 15, 1);
+insert into wyklady (nazwa_wykladu, liczba_godzin, id_wykladowcy)
+values ('Matematyka', 30, 1);
+
+insert into wyklady (nazwa_wykladu, liczba_godzin, id_wykladowcy)
+values ('Historia', 15, 3);
+
+
+insert into wyklady (nazwa_wykladu, liczba_godzin, id_wykladowcy)
+values ('Geografia', 30, 3);
+
+
+
+create table studenci_wyklady (
+id_studenta int4 not null,
+id_wykladu int4 not null,
+primary key (id_studenta, id_wykladu),
+foreign key (id_wykladu) references wyklady on delete restrict,
+foreign key (id_studenta) references studenci on delete cascade
+);
+
+
+insert into studenci_wyklady values(2,1);
+
+insert into studenci_wyklady values(3,2);
+
+insert into studenci_wyklady values(1,2);
+
+
+insert into studenci_wyklady values(2,3);
+
+insert into studenci_wyklady values(6,4);
+
+insert into studenci_wyklady values(2,4);
+
+create table oceny_studentow (
+id_studenta int8,
+id_wykladu int8,
+data_egzaminu date,
+ocena float4,
+primary key (id_studenta, id_wykladu, data_egzaminu),
+foreign key (id_studenta, id_wykladu) references studenci_wyklady 
+on delete restrict on update cascade,
+foreign key (ocena) references oceny on delete restrict on update cascade
+);
+
+
+insert into oceny_studentow values (2, 1, '2001-03-21', 4.5);
+
+insert into oceny_studentow values (1, 2, '2001-04-17', 5);
+
+insert into oceny_studentow values (3, 2, '2001-02-10', 2);
+
+insert into oceny_studentow values (3, 2, current_date, 3);
+insert into oceny_studentow values (2, 3, '2001-04-12', 5);
+
+insert into oceny_studentow values (6, 4, '2001-04-12', 2);

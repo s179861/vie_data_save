@@ -1,0 +1,5 @@
+insert into wykladowcy (id_wykladowcy,stopien_tytul,katedra) values
+	(1,'doktor','Katedra Matematyki'),
+	(2,'profesor nadzwyczajny','Katedra Informatyki'),
+	(3,'doktor','Katedra Historii'),
+	(4,'magister','Katedra Ekonomii');
